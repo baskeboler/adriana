@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Perfil</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <!--<ion-list>-->
+    <!--<button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">-->
+      <!--<ion-icon [name]="item.icon" item-left></ion-icon>-->
+      <!--{{item.title}}-->
+      <!--<div class="item-note" item-right>-->
+        <!--{{item.note}}-->
+      <!--</div>-->
+    <!--</button>-->
+  <!--</ion-list>-->
+  <!--<div *ngIf="selectedItem" padding>-->
+    <!--You navigated here from <b>{{selectedItem.title}}</b>-->
+  <!--</div>-->
+  <img src="../../assets/productos-de-limpieza.jpg">
+  <ion-list>
+    <ion-list-header>Datos del hogar</ion-list-header>
+    <ion-item>
+      <ion-label>Direccion</ion-label>
+      <ion-input [(ngModel)]="direccion" ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Habitaciones </ion-label>
+      <ion-input [(ngModel)]="habitaciones" type="number"></ion-input>
+    </ion-item>
+  </ion-list>
+</ion-content>

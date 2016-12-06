@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Llamar a Adriana</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h3>Adriana Home</h3>
+  <ion-searchbar (ionInput)="findAdriana($event)"></ion-searchbar>
+
+  <ion-list>
+    <ion-list-header>
+      Cuando?
+    </ion-list-header>
+    <ion-item>
+      <ion-label>Día</ion-label>
+      <ion-datetime displayFormat="DD/MMM/YYYY" pickerFormat="DD/MMM/YYYY" [(ngModel)]="event.timeStarts"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>Hora</ion-label>
+      <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="event.timeStarts"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>{{horas}}</ion-label>
+      <ion-range min="3" max="8" snaps="true" [(ngModel)]="horas">
+        <ion-icon range-left small name="alarm"></ion-icon>
+        <ion-icon range-right name="alarm"></ion-icon>
+      </ion-range>
+    </ion-item>
+    <ion-item>
+      <button ion-button block>Confirmar</button>
+    </ion-item>
+  </ion-list>
+
+  <p>
+    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
+  </p>
+  <div id="mapid"></div>
+  <button ion-button secondary menuToggle>Toggle Menu</button>
+  <button ion-button primary (click)="showToast()">Show toast</button>
+</ion-content>
