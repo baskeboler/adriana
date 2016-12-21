@@ -15,19 +15,21 @@ import {LoginPage} from "../pages/login/login";
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = Page1;
+  rootPage: any = LoginPage;
 
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{title: string, component: any, visible: boolean}>;
+
+  loggedIn: boolean;
 
   constructor(public platform: Platform, private af: AngularFire, private auth: AuthService) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
-      {title: 'Login', component: LoginPage},
-      {title: 'Page One', component: Page1},
-      {title: 'Page Two', component: Page2},
-      {title: 'Perfil', component: Perfil}
+      {title: 'Login', component: LoginPage, visible: true},
+      {title: 'Page One', component: Page1, visible: true},
+      {title: 'Page Two', component: Page2, visible: true},
+      {title: 'Perfil', component: Perfil, visible: true}
     ];
 
     // System
@@ -40,6 +42,13 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
       Splashscreen.hide();
+
+      this.auth.loggedIn
+        .subscribe(arg => {
+          this.loggedIn = arg.valueOf();
+          this.pages[0].visible = this.loggedIn;
+        });
+
     });
   }
 
@@ -49,12 +58,10 @@ export class MyApp {
     this.nav.setRoot(page.component);
   }
 
-  signInWithFacebook(): void {
-    this.auth.signInWithFacebook()
-      .then(() => this.onSignInSuccess());
+  logout() {
+    this.openPage({component: LoginPage});
+    this.auth.signOut();
   }
 
-  private onSignInSuccess(): void {
-    console.log("Facebook display name ",this.auth.displayName());
-  }
+
 }

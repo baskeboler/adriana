@@ -7,21 +7,29 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>login</ion-title>
+    <ion-title>Inicio</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+  <p>
+    Bienvenido a Adriana!
+  </p>
   <ion-list>
     <ion-list-header>Login</ion-list-header>
     <ion-item>
-      <ion-input type="email" [(ngModel)]="usuario.email"></ion-input>
+      <i class="icon ion-person "></i>
+      <ion-input type="email" [(ngModel)]="usuario.email" placeholder="Email"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input type="password" [(ngModel)]="usuario.password"></ion-input>
+      <ion-input type="password" [(ngModel)]="usuario.password" placeholder="Ingrese su contraseña"></ion-input>
     </ion-item>
-    <button ion-button large block (click)="login()">Entrar</button>
+    <button ion-button  block (click)="login()">Entrar</button>
+    <button ion-button block outline (click)="goToCreateUser()">Crear Peril</button>
   </ion-list>
+  <p>
+    Quieres trabajar con Adriana? <a href="#">Únete al equipo!</a>
+  </p>
 </ion-content>

@@ -17,11 +17,14 @@
   <ion-list>
     <ion-list-header>Crear Usuario</ion-list-header>
     <ion-item>
-      <ion-input type="email" [(ngModel)]="user.email"></ion-input>
+      <ion-input type="email" [(ngModel)]="user.email" placeholder="Email"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input type="password" [(ngModel)]="user.password"></ion-input>
+      <ion-input type="password" [(ngModel)]="user.password" placeholder="Ingrese su contraseña"></ion-input>
     </ion-item>
-    <button ion-button large block>Ingresar</button>
+    <ion-item>
+      <ion-input type="password" [(ngModel)]="password2" placeholder="Repita su contraseña"></ion-input>
+    </ion-item>
+    <button ion-button large block (click)="crearUsuario()">Crear</button>
   </ion-list>
 </ion-content>

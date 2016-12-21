@@ -8,28 +8,35 @@
 </ion-header>
 
 <ion-content>
-  <!--<ion-list>-->
-    <!--<button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">-->
-      <!--<ion-icon [name]="item.icon" item-left></ion-icon>-->
-      <!--{{item.title}}-->
-      <!--<div class="item-note" item-right>-->
-        <!--{{item.note}}-->
-      <!--</div>-->
-    <!--</button>-->
-  <!--</ion-list>-->
-  <!--<div *ngIf="selectedItem" padding>-->
-    <!--You navigated here from <b>{{selectedItem.title}}</b>-->
-  <!--</div>-->
-  <img src="../../assets/productos-de-limpieza.jpg">
-  <ion-list>
+
+  <img src="assets/img/productos-de-limpieza.jpg">
+  <ion-list *ngIf="profileObj">
     <ion-list-header>Datos del hogar</ion-list-header>
     <ion-item>
       <ion-label>Direccion</ion-label>
-      <ion-input [(ngModel)]="direccion" ></ion-input>
+      <ion-input [(ngModel)]="profileObj.address" ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Telefono</ion-label>
+      <ion-input [(ngModel)]="profileObj.telefono" [textMask]="{mask: mask}" ></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>Habitaciones </ion-label>
-      <ion-input [(ngModel)]="habitaciones" type="number"></ion-input>
+      <ion-input [(ngModel)]="profileObj.nRooms" type="number"></ion-input>
     </ion-item>
+    <ion-item>
+      <ion-label>Baños </ion-label>
+      <ion-input [(ngModel)]="profileObj.nBathrooms" type="number"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Ciudad</ion-label>
+      <ion-select [(ngModel)]="profileObj.city">
+        <ion-option *ngFor="let city of cities" value="{{city.$key}}" >
+          {{city.name}}
+        </ion-option>
+      </ion-select>
+    </ion-item>
+    <button ion-button block (click)="save()">Guardar</button>
   </ion-list>
+  <!--<city-list></city-list>-->
 </ion-content>

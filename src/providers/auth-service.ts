@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 // import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
-
+import {Subject} from 'rxjs/Subject';
 import { AuthProviders, FirebaseAuth, FirebaseAuthState, AuthMethods } from 'angularfire2';
 import {EmailPasswordCredentials} from "angularfire2/auth";
 
@@ -13,17 +13,23 @@ import {EmailPasswordCredentials} from "angularfire2/auth";
 */
 @Injectable()
 export class AuthService {
-  private authState: FirebaseAuthState;
+  public authState: Subject<FirebaseAuthState>= new Subject();
+  public uid: string;
+  public loggedIn: Subject<Boolean> = new Subject();
 
   constructor(public auth$: FirebaseAuth) {
-    this.authState = auth$.getAuth();
+    this.loggedIn.next(false);
+    this.authState.next(auth$.getAuth());
     auth$.subscribe((state: FirebaseAuthState) => {
-      this.authState = state;
+      this.authState.next(state);
+      this.uid = (state != null) ? state.uid : null;
+      this.loggedIn.next(this.uid != null);
     });
   }
 
+
   get authenticated(): boolean {
-    return this.authState !== null;
+    return this.uid !== null;
   }
 
   signInWithFacebook(): firebase.Promise<FirebaseAuthState> {
@@ -42,13 +48,6 @@ export class AuthService {
     return this.auth$.login(credentials)
   }
 
-  displayName(): string {
-    if (this.authState != null) {
-      return this.authState.facebook.displayName;
-    } else {
-      return '';
-    }
-  }
 
   createUser(credentials: EmailPasswordCredentials) {
     return this.auth$.createUser(credentials);

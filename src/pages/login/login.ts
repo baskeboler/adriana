@@ -1,8 +1,9 @@
 import {Component} from '@angular/core';
-import {NavController} from 'ionic-angular';
+import {NavController, LoadingController} from 'ionic-angular';
 import {EmailPasswordCredentials} from "angularfire2/auth";
 import {AuthService} from "../../providers/auth-service";
-
+import {Perfil} from '../perfil/perfil';
+import {CrearUsuarioPage} from '../crearusuario/crearusuario';
 /*
  Generated class for the Login page.
 
@@ -19,7 +20,7 @@ export class LoginPage {
     password: ''
   };
 
-  constructor(public navCtrl: NavController, public auth: AuthService) {
+  constructor(public navCtrl: NavController, public auth: AuthService, public loadingCtrl: LoadingController) {
   }
 
   ionViewDidLoad() {
@@ -27,11 +28,23 @@ export class LoginPage {
   }
 
   login() {
+    let loading = this.loadingCtrl.create({
+      content: 'Entrando',
+      delay: 3000
+    });
+    loading.present();
+
     this.auth.signInWithUserPassword(this.usuario).then((ret) => {
       console.log('successs!', ret);
+      this.navCtrl.setRoot(Perfil);
+      loading.dismiss();
     }).catch((err) => {
       console.log( 'error: ', err);
     })
+  }
+
+  goToCreateUser() {
+    this.navCtrl.push(CrearUsuarioPage);
   }
 
 }
