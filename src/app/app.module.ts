@@ -4,6 +4,10 @@ import {MyApp} from './app.component';
 import {Page1} from '../pages/page1/page1';
 import {Page2} from '../pages/page2/page2';
 import {Perfil} from "../pages/perfil/perfil";
+
+import {HistoryDetailPage} from "../pages/history-detail/history-detail";
+import {HistoryPage} from "../pages/history/history";
+
 import {AngularFireModule, FirebaseAppConfig, AuthProviders, AuthMethods} from 'angularfire2';
 import {AuthService} from "../providers/auth-service";
 import {LoggerService} from '../providers/logger-service';
@@ -35,7 +39,9 @@ export const firebaseAuthConfig = {
     Perfil,
     CrearUsuarioPage,
     LoginPage,
-    CityListComponent
+    CityListComponent,
+    HistoryDetailPage,
+    HistoryPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -49,7 +55,9 @@ export const firebaseAuthConfig = {
     Page2,
     Perfil,
     CrearUsuarioPage,
-    LoginPage
+    LoginPage,
+    HistoryPage,
+    HistoryDetailPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, AuthService, LoggerService, CityService, ProfileService]
 })

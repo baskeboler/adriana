@@ -10,6 +10,7 @@ import { ProfileService } from '../../providers/profile-service';
 import { Subscription } from 'rxjs/Subscription';
 import { CityService } from '../../providers/cities.service';
 import { Geolocation } from 'ionic-native';
+import {HistoryPage} from "../history/history";
 
 
 @Component({
@@ -74,6 +75,10 @@ export class Perfil implements OnInit, OnDestroy {
       toast.onDidDismiss(() => console.log('toast dismissed'));
       toast.present();
     });
+  }
+
+  goToHistory(){
+    this.navCtrl.push(HistoryPage);
   }
 
 }

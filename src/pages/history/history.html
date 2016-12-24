@@ -1,0 +1,30 @@
+<!--
+  Generated template for the History page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>History</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+<h3>Ultimos servicios</h3>
+  <ion-list>
+    <ion-list-header>Historial</ion-list-header>
+    <ion-item *ngFor="let service of services">
+     <h2>
+       {{service.worker}}
+     </h2>
+      <p>
+        {{service.fecha | date}}
+      </p>
+      <button ion-button item-right>Ver</button>
+    </ion-item>
+  </ion-list>
+</ion-content>
