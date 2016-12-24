@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NavController, LoadingController} from 'ionic-angular';
+import {NavController, LoadingController, AlertController} from 'ionic-angular';
 import {EmailPasswordCredentials} from "angularfire2/auth";
 import {AuthService} from "../../providers/auth-service";
 import {Perfil} from '../perfil/perfil';
@@ -20,11 +20,22 @@ export class LoginPage {
     password: ''
   };
 
-  constructor(public navCtrl: NavController, public auth: AuthService, public loadingCtrl: LoadingController) {
+  constructor(public navCtrl: NavController, public auth: AuthService, public loadingCtrl: LoadingController, public alertCtrl: AlertController) {
   }
 
   ionViewDidLoad() {
     console.log('Hello LoginPage Page');
+  }
+
+  alert(message: string, title?: string, subtitle?: string) {
+    let alert = this.alertCtrl.create({
+      message: message,
+      title: title == null ? 'Atencion' : title,
+      subTitle: subtitle == null ? '' : subtitle,
+      buttons: ['OK']
+    });
+    alert.present();
+    return alert;
   }
 
   login() {
@@ -40,6 +51,9 @@ export class LoginPage {
       loading.dismiss();
     }).catch((err) => {
       console.log( 'error: ', err);
+      loading.dismiss().then(() => {
+        this.alert('Error al inicial sesión', 'Error');
+      });
     })
   }
 

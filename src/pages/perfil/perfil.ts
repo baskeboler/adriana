@@ -4,11 +4,14 @@
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NavController, ToastController, LoadingController } from "ionic-angular";
-import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
+import { AngularFire } from 'angularfire2';
 import { AuthService } from '../../providers/auth-service';
 import { ProfileService } from '../../providers/profile-service';
 import { Subscription } from 'rxjs/Subscription';
-import { CityService } from '../../providers/cities.service'
+import { CityService } from '../../providers/cities.service';
+import { Geolocation } from 'ionic-native';
+
+
 @Component({
   selector: 'page=perfil',
   templateUrl: 'perfil.html'
@@ -31,13 +34,21 @@ export class Perfil implements OnInit, OnDestroy {
   ngOnInit() {
     // this.profileObj = this.ps.getProfile();
     console.log("on init");
+
     this.profileObjSub = this.ps.getProfile().subscribe((p) => {
       console.log(p);
       this.profileObj = p;
     });
+
     this.citiesSub = this.cs.find().subscribe((cities) => {
       this.cities = cities;
-    })
+    });
+
+    Geolocation.getCurrentPosition({enableHighAccuracy: true, timeout: Number.POSITIVE_INFINITY}).then((resp) => {
+      let jsonStringResponse = JSON.stringify(resp.coords);
+      console.log(`Got this response: ${resp}`);
+    }).catch((err) => console.log(`Error: ${err.message}`));
+
   }
 
   ngOnDestroy() {
