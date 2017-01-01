@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 // import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
-import {Subject} from 'rxjs/Subject';
+import {Subject} from 'rxjs';
 import { AuthProviders, FirebaseAuth, FirebaseAuthState, AuthMethods } from 'angularfire2';
 import {EmailPasswordCredentials} from "angularfire2/auth";
 
@@ -13,9 +13,9 @@ import {EmailPasswordCredentials} from "angularfire2/auth";
 */
 @Injectable()
 export class AuthService {
-  public authState: Subject<FirebaseAuthState>= new Subject();
+  public authState: Subject<any> = new Subject();
   public uid: string;
-  public loggedIn: Subject<Boolean> = new Subject();
+  public loggedIn: Subject<Boolean> = new Subject<Boolean>();
 
   constructor(public auth$: FirebaseAuth) {
     this.loggedIn.next(false);

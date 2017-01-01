@@ -11,8 +11,8 @@ import { Subscription } from 'rxjs/Subscription';
 import { CityService } from '../../providers/cities.service';
 import { Geolocation } from 'ionic-native';
 import {HistoryPage} from "../history/history";
-
-
+import {JobRequestService} from '../../providers/providers';
+import {House} from '../../models/house'
 @Component({
   selector: 'page=perfil',
   templateUrl: 'perfil.html'
@@ -28,7 +28,8 @@ export class Perfil implements OnInit, OnDestroy {
 
   constructor(public navCtrl: NavController, af: AngularFire, auth: AuthService,
     public ps: ProfileService, public cs: CityService,
-    public toastCtrl: ToastController, public loadingCtrl: LoadingController) {
+    public toastCtrl: ToastController, public loadingCtrl: LoadingController, 
+    public requestService: JobRequestService) {
     //this.profileObj = af.database.object('profile/' + auth.uid);
   }
 
@@ -79,6 +80,12 @@ export class Perfil implements OnInit, OnDestroy {
 
   goToHistory(){
     this.navCtrl.push(HistoryPage);
+  }
+
+  createRequest() {
+    let house = new House(this.profileObj.address, "55 5555 5555", this.profileObj.nRooms, this.profileObj.nBathrooms)
+    house.id = this.profileObj.$key;
+    this.requestService.createJobRequest(house, new Date(), 3);
   }
 
 }

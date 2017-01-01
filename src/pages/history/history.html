@@ -27,4 +27,12 @@
       <button ion-button item-right>Ver</button>
     </ion-item>
   </ion-list>
+  <ion-list>
+    <ion-list-header>Pedidos</ion-list-header>
+    <ion-item *ngFor="let req of requests | async">
+      <h2>{{req.date | date}}</h2>
+      <h3>{{req.hours}}</h3>
+      <button ion-button item-right>Ver</button>
+    </ion-item>
+  </ion-list>
 </ion-content>

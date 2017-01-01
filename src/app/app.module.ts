@@ -9,13 +9,10 @@ import {HistoryDetailPage} from "../pages/history-detail/history-detail";
 import {HistoryPage} from "../pages/history/history";
 
 import {AngularFireModule, FirebaseAppConfig, AuthProviders, AuthMethods} from 'angularfire2';
-import {AuthService} from "../providers/auth-service";
-import {LoggerService} from '../providers/logger-service';
+import {AuthService, CityService, LoggerService, ProfileService, HomeService, JobRequestService} from "../providers/providers";
 import {CrearUsuarioPage} from "../pages/crearusuario/crearusuario";
 import {LoginPage} from "../pages/login/login";
-import {CityService} from '../providers/cities.service';
 import {CityListComponent} from '../components/city-list/citi-list.component';
-import {ProfileService} from '../providers/profile-service';
 import {TextMaskModule} from 'angular2-text-mask';
 
 export const firebaseConfig: FirebaseAppConfig = {
@@ -31,8 +28,7 @@ export const firebaseAuthConfig = {
   provider: AuthProviders.Password
 };
 
-@NgModule({
-  declarations: [
+let pages = [
     MyApp,
     Page1,
     Page2,
@@ -42,24 +38,28 @@ export const firebaseAuthConfig = {
     CityListComponent,
     HistoryDetailPage,
     HistoryPage
-  ],
+];
+@NgModule({
+  declarations: pages,
   imports: [
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig),
     TextMaskModule
   ],
   bootstrap: [IonicApp],
-  entryComponents: [
-    MyApp,
-    Page1,
-    Page2,
-    Perfil,
-    CrearUsuarioPage,
-    LoginPage,
-    HistoryPage,
-    HistoryDetailPage
-  ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, AuthService, LoggerService, CityService, ProfileService]
+  entryComponents: pages,
+  providers: [
+    {
+      provide: ErrorHandler, 
+      useClass: IonicErrorHandler
+    }, 
+    AuthService, 
+    LoggerService, 
+    CityService, 
+    ProfileService,
+    HomeService,
+    JobRequestService
+  ]
 })
 export class AppModule {
 }
